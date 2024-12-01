@@ -1,5 +1,6 @@
 const userModel = require("../models/userModel");
 const TokenHelper = require("../utility/TokenHelper");
+const taskModel = require("../models/taskModel");
 const userRegistrationService=async (req)=>{
     try{
         let body=req.body
@@ -30,8 +31,14 @@ const userLoginService=async (req)=>{
 }
 
 const userProfileUpdateService=async (req)=>{
-    let email=req.headers.email
-    return {status:'success',email:email}
+    try{
+        let email=req.headers.email
+        let bodyData=req.body
+        let data=await taskModel.updateOne({email:email},bodyData)
+        return {status:'success',msg:'User Updated Successfully',data:data}
+    }catch (e) {
+        return {status:'failed',msg:'User  is not Updated',err:e.toString()}
+    }
 }
 
 
