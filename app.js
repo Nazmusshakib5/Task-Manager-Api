@@ -13,7 +13,7 @@ const cookieParser=require('cookie-parser')
 const mongoose=require('mongoose')
 const path=require('path')
 
-
+require('dotenv').config();
 
 app.use(
     helmet({
@@ -36,7 +36,7 @@ app.use(limiter);
 
 //database Connection Before Routing
 let URL='mongodb+srv://mongoShakib:<password>@cluster0.gtiw82u.mongodb.net/taskManager';
-let OPTION={user:'mongoShakib',pass:'mongoShakib69',autoIndex:true};
+let OPTION={user:process.env.DB_USER_ID,pass:process.env.DB_USER_PASS,autoIndex:true};
 
 mongoose.connect(URL,OPTION).then((res)=>{
     console.log('TaskManager Database Connected successfully')
