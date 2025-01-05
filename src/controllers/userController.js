@@ -1,13 +1,43 @@
 const {userRegistrationService,userLoginService,userProfileUpdateService}=require('../services/userServices')
-
+const userModel = require("../models/userModel");
 
 exports.UserRegistration=async (req,res)=>{
-    const data=await userRegistrationService(req,res)
-    console.log(data)
-    // if(data['err']['keyPattern']['email']){
-    //     return res.status(200).json({registration:"fail",data:data}) 
-    // }
-    return res.status(200).json({data:data})
+    // const data=await userRegistrationService(req,res)
+    // console.log(data)
+    // // if(data['err']['keyPattern']['email']){
+    // //     return res.status(200).json({registration:"fail",data:data}) 
+    // // }
+    // return res.status(200).json({data:data})
+
+    try {
+        let reqBody = req.body;
+
+        // Attempt to create the user
+        const data = await userModel.create(reqBody);
+
+        // If creation succeeds
+        res.status(200).json({
+            status: "success",
+            msg: "User Created Successfully",
+            data: data
+        });
+    } catch (err) {
+        // Handle duplicate key error (MongoDB error code 11000)
+        if (err.code === 11000 && err.keyPattern && err.keyPattern.email) {
+            res.status(200).json({
+                status: "fail",
+                msg: "Email already exists",
+                data: null
+            });
+        } else {
+            // Handle other errors
+            res.status(500).json({
+                status: "error",
+                msg: "An unexpected error occurred",
+                error: err.message || err
+            });
+        }
+    }
 }
 
 exports.UserLogin=async (req,res)=>{
