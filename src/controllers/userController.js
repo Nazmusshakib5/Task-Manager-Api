@@ -2,7 +2,11 @@ const {userRegistrationService,userLoginService,userProfileUpdateService}=requir
 
 
 exports.UserRegistration=async (req,res)=>{
-    const data=await userRegistrationService(req)
+    const data=await userRegistrationService(req,res)
+    console.log(data)
+    // if(data['err']['keyPattern']['email']){
+    //     return res.status(200).json({registration:"fail",data:data}) 
+    // }
     return res.status(200).json({data:data})
 }
 
