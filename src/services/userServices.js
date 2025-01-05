@@ -7,7 +7,7 @@ const userRegistrationService=async (req)=>{
         let data=await userModel.create(body)
         return {status:'success',msg:'User Created Successfully',data:data}
     }catch (e) {
-        return {status:'failed',msg:'user is not Created',err:e.toString()}
+        return {status:'failed',msg:'user is not Created',err:e}
     }
 }
 
@@ -32,9 +32,9 @@ const userLoginService=async (req)=>{
 
 const userProfileUpdateService=async (req)=>{
     try{
-        let email=req.headers.email
+        let email=req.headers['email']
         let bodyData=req.body
-        let data=await taskModel.updateOne({email:email},bodyData)
+        let data=await userModel.updateOne({email:email},bodyData)
         return {status:'success',msg:'User Updated Successfully',data:data}
     }catch (e) {
         return {status:'failed',msg:'User  is not Updated',err:e.toString()}
