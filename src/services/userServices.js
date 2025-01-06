@@ -12,37 +12,13 @@ const userRegistrationService=async (req)=>{
         }
         else{
             let data=await userModel.create(body)
-            return {status:'success',msg:'User Created Successfully',data:data}
+            return {status:'success',msg:'User Created Successfully'}
         }
         
     }catch (e) {
         return {status:'failed',msg:'error happpened',err:e}
     }
 
-    // try {
-    //     let body = req.body;
-    //     let data = await userModel.create(body);
-    //     return {
-    //         status: 'success',
-    //         msg: 'User Created Successfully',
-    //         data: data
-    //     };
-
-    // } catch (e) {
-    //     if (e.code === 11000 && e.keyPattern && e.keyPattern.email) {
-    //         return {
-    //             status: 'duplicate',
-    //             msg: 'Email already exists',
-    //             err: e
-    //         };
-    //     }
-    //     // Handle other errors
-    //     return {
-    //         status: 'failed',
-    //         msg: 'User is not Created',
-    //         err: e.message || e
-    //     };
-    // }
 }
 
 
