@@ -8,7 +8,7 @@ const taskController=require('../controllers/taskController')
 const router=express.Router()
 
 router.post('/createUser',userController.UserRegistration)
-router.get('/login',userController.UserLogin)
+router.post('/login',userController.UserLogin)
 router.get('/logout',userController.UserLogout)
 
 
