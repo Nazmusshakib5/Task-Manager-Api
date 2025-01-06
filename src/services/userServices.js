@@ -1,46 +1,49 @@
 const userModel = require("../models/userModel");
 const TokenHelper = require("../utility/TokenHelper");
 const taskModel = require("../models/taskModel");
-// const userRegistrationService=async (req,res)=>{
-//     // try{
-//     //     let body=req.body
-//     //     let data=await userModel.create(body)
-//     //     if(data['err']){
-//     //         return res.status(200).json({status:'fail',msg:'User is not Created Successfully',data:data})
-//     //     }
-//     //     else{
-//     //         return res.status(200).json({status:'success',msg:'User Created Successfully',data:data})
-//     //     }
+const userRegistrationService=async (req)=>{
+    try{
+        let body=req.body
+        let email=body['email']
+        let queryData=await userModel.findOne({email:email})
         
-//     // }catch (e) {
-//     //     return {status:'failed',msg:'user is not Created',err:e}
-//     // }
+        if(queryData){
+            return {status:'fail',msg:'Email already exist'}
+        }
+        else{
+            let data=await userModel.create(body)
+            return {status:'success',msg:'User Created Successfully',data:data}
+        }
+        
+    }catch (e) {
+        return {status:'failed',msg:'error happpened',err:e}
+    }
 
-//     try {
-//         let body = req.body;
-//         let data = await userModel.create(body);
-//         return {
-//             status: 'success',
-//             msg: 'User Created Successfully',
-//             data: data
-//         };
+    // try {
+    //     let body = req.body;
+    //     let data = await userModel.create(body);
+    //     return {
+    //         status: 'success',
+    //         msg: 'User Created Successfully',
+    //         data: data
+    //     };
 
-//     } catch (e) {
-//         if (e.code === 11000 && e.keyPattern && e.keyPattern.email) {
-//             return {
-//                 status: 'duplicate',
-//                 msg: 'Email already exists',
-//                 err: e
-//             };
-//         }
-//         // Handle other errors
-//         return {
-//             status: 'failed',
-//             msg: 'User is not Created',
-//             err: e.message || e
-//         };
-//     }
-// }
+    // } catch (e) {
+    //     if (e.code === 11000 && e.keyPattern && e.keyPattern.email) {
+    //         return {
+    //             status: 'duplicate',
+    //             msg: 'Email already exists',
+    //             err: e
+    //         };
+    //     }
+    //     // Handle other errors
+    //     return {
+    //         status: 'failed',
+    //         msg: 'User is not Created',
+    //         err: e.message || e
+    //     };
+    // }
+}
 
 
 const userLoginService=async (req)=>{
@@ -74,6 +77,7 @@ const userProfileUpdateService=async (req)=>{
 
 
 module.exports={
+    userRegistrationService,
     userLoginService,
     userProfileUpdateService
 }
