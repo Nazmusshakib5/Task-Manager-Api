@@ -35,9 +35,10 @@ const updateTaskService=async (req)=>{
 }
 
 const taskListByStatusService=async (req)=>{
+    let email=req.headers['email']
     let taskStatus=req.params.status
     try{
-        let data=await taskModel.find({status:taskStatus})
+        let data=await taskModel.find({email:email,status:taskStatus})
         return {status:'success',msg:'Task Updated Successfully',data:data}
     }catch (e) {
         return {status:'failed',msg:'Task  is not Updated',err:e.toString()}
