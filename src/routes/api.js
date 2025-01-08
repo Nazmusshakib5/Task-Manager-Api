@@ -18,6 +18,7 @@ router.post('/createTask',authVerifyMiddleware,taskController.createTask)
 router.post('/updateTask/:id',authVerifyMiddleware,taskController.updateTask)
 router.get('/deleteTask/:id',authVerifyMiddleware,taskController.deleteTask)
 router.get('/listByStatus/:status',authVerifyMiddleware,taskController.listTaskByStatus)
+router.get('/dashboardTaskStatus',authVerifyMiddleware,taskController.dashboardTaskStatus)
 
 
 module.exports=router;

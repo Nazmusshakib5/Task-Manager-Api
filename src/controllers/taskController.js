@@ -2,7 +2,8 @@
 const { createTaskService,
         deleteTaskService,
         updateTaskService,
-        taskListByStatusService
+        taskListByStatusService,
+        dashboardTaskStatusService
 } = require("../services/taskServices");
 exports.createTask=async (req, res)=>{
     const data=await createTaskService(req)
@@ -18,5 +19,9 @@ exports.updateTask=async (req, res)=>{
 }
 exports.listTaskByStatus=async (req, res)=>{
     const data=await taskListByStatusService(req)
+    return res.status(200).json({data:data})
+}
+exports.dashboardTaskStatus=async (req, res)=>{
+    const data=await dashboardTaskStatusService(req)
     return res.status(200).json({data:data})
 }

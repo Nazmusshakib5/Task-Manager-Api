@@ -45,10 +45,31 @@ const taskListByStatusService=async (req)=>{
     }
 }
 
+const dashboardTaskStatusService=async(req)=>{
+    let email=req.headers['email']
+    try{
+        let newTask=await taskModel.countDocuments({email:email,status:'new'})
+        let completedTask=await taskModel.countDocuments({email:email,status:'completed'})
+        let canceledTask=await taskModel.countDocuments({email:email,status:'canceled'})
+        let progressTask=await taskModel.countDocuments({email:email,status:'progress'})
+
+        let data={
+            newTask:newTask,
+            completedTask:completedTask,
+            canceledTask:canceledTask,
+            progressTask:progressTask
+        }
+        return {status:'success',msg:'Task Counted Successfully',data:data}
+    }catch (e) {
+        return {status:'failed',msg:'Task  is not Updated',err:e.toString()}
+    }
+}
+
 
 module.exports={
     createTaskService,
     deleteTaskService,
     updateTaskService,
-    taskListByStatusService
+    taskListByStatusService,
+    dashboardTaskStatusService
 }
