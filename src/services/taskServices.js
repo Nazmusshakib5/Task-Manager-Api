@@ -53,12 +53,25 @@ const dashboardTaskStatusService=async(req)=>{
         let canceledTask=await taskModel.countDocuments({email:email,status:'canceled'})
         let progressTask=await taskModel.countDocuments({email:email,status:'progress'})
 
-        let data={
-            newTask:newTask,
-            completedTask:completedTask,
-            canceledTask:canceledTask,
-            progressTask:progressTask
-        }
+        let data=[
+            {
+                taskName:'new',
+                count:newTask
+            },
+            {
+                taskName:'completed',
+                count:completedTask
+            },
+            {
+                taskName:'canceled',
+                count:canceledTask
+            },
+            {
+                taskName:'progress',
+                count:progressTask
+            }
+        ]
+                
         return {status:'success',msg:'Task Counted Successfully',data:data}
     }catch (e) {
         return {status:'failed',msg:'Task  is not Updated',err:e.toString()}
