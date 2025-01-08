@@ -27,9 +27,15 @@ const userLoginService=async (req)=>{
         let reqBody=req.body
         const user = await userModel.countDocuments(reqBody);
         if(user>0){
+            let matchingStage={$match:{email:reqBody.email}}
+            let projectionStage={$project:{'password':0}}
             const userID=await userModel.find({email:reqBody.email}).select('_id');
             const token=await TokenHelper.EncodeToken(reqBody.email,userID[0]['_id'].toString())
-            return {status:'success',msg:'validOtp',userNo:user,token:token}
+            const userData=await userModel.aggregate([
+                matchingStage,
+                projectionStage
+            ])
+            return {status:'success',msg:'validOtp',userData:userData,token:token}
 
         }else{
             return {status:'failed',msg:'InvalidOtp'}
