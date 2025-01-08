@@ -55,19 +55,19 @@ const dashboardTaskStatusService=async(req)=>{
 
         let data=[
             {
-                taskName:'new',
+                taskName:'New',
                 count:newTask
             },
             {
-                taskName:'completed',
+                taskName:'Completed',
                 count:completedTask
             },
             {
-                taskName:'canceled',
+                taskName:'Canceled',
                 count:canceledTask
             },
             {
-                taskName:'progress',
+                taskName:'Progress',
                 count:progressTask
             }
         ]
