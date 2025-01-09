@@ -12,6 +12,7 @@ const cors=require('cors')
 const cookieParser=require('cookie-parser')
 const mongoose=require('mongoose')
 const path=require('path')
+const allowedOrigins = ['https://task-manager-front-end-hazel.vercel.app'];
 
 require('dotenv').config();
 
@@ -21,9 +22,15 @@ app.use(
         xDownloadOptions: false,
     }),
 );
+
+app.use(cors({
+  origin: allowedOrigins, // Allow only this frontend origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+}));
+
 app.use(mongoSanitize());
 app.use(xss())
-app.use(cors())
 app.use(cookieParser())
 app.use(hpp())
 
