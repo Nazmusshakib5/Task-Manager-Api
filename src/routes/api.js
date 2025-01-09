@@ -12,7 +12,8 @@ router.post('/login',userController.UserLogin)
 router.get('/logout',userController.UserLogout)
 
 
-router.get('/updateProfile',authVerifyMiddleware,userController.userProfileUpdate)
+router.post('/updateProfile',authVerifyMiddleware,userController.userProfileUpdate)
+router.post('/profileDetails',authVerifyMiddleware,userController.userProfileDetails)
 
 router.post('/createTask',authVerifyMiddleware,taskController.createTask)
 router.post('/updateTask/:id',authVerifyMiddleware,taskController.updateTask)

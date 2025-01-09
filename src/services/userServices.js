@@ -56,10 +56,20 @@ const userProfileUpdateService=async (req)=>{
         return {status:'failed',msg:'User  is not Updated',err:e.toString()}
     }
 }
+const userProfileDetailsService=async (req)=>{
+    try{
+        let email=req.headers['email']
+        let data=await userModel.find({email:email})
+        return {status:'success',msg:'User Deatils Fetched Successfully',data:data}
+    }catch (e) {
+        return {status:'failed',msg:'User  is not Found',err:e.toString()}
+    }
+}
 
 
 module.exports={
     userRegistrationService,
     userLoginService,
-    userProfileUpdateService
+    userProfileUpdateService,
+    userProfileDetailsService
 }

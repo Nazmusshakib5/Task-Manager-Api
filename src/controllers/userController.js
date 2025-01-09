@@ -1,4 +1,9 @@
-const {userRegistrationService,userLoginService,userProfileUpdateService}=require('../services/userServices')
+const {
+    userRegistrationService,
+    userLoginService,
+    userProfileUpdateService,
+    userProfileDetailsService
+}=require('../services/userServices')
 const userModel = require("../models/userModel");
 
 exports.UserRegistration=async (req,res)=>{
@@ -30,6 +35,11 @@ exports.UserLogout=async (req,res)=>{
 
 exports.userProfileUpdate=async (req,res)=>{
     const  data=await userProfileUpdateService(req)
+    return res.status(200).json({data:data})
+}
+
+exports.userProfileDetails=async (req,res)=>{
+    const  data=await userProfileDetailsService(req)
     return res.status(200).json({data:data})
 }
 
