@@ -15,6 +15,10 @@ router.get('/logout',userController.UserLogout)
 router.post('/updateProfile',authVerifyMiddleware,userController.userProfileUpdate)
 router.get('/profileDetails',authVerifyMiddleware,userController.userProfileDetails)
 
+router.get("/recoverVerifyEmail/:email",userController.RecoverVerifyEmail);
+router.get("/recoverVerifyOTP/:email/:otp",userController.RecoverVerifyOTP);
+router.post("/recoverResetPass",userController.RecoverResetPass);
+
 router.post('/createTask',authVerifyMiddleware,taskController.createTask)
 router.post('/updateTask/:id',authVerifyMiddleware,taskController.updateTask)
 router.get('/deleteTask/:id',authVerifyMiddleware,taskController.deleteTask)

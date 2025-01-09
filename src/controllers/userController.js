@@ -2,7 +2,10 @@ const {
     userRegistrationService,
     userLoginService,
     userProfileUpdateService,
-    userProfileDetailsService
+    userProfileDetailsService,
+    recoverVerifyEmailService,
+    recoverVerifyOTPService,
+    recoverResetPassService
 }=require('../services/userServices')
 const userModel = require("../models/userModel");
 
@@ -43,3 +46,20 @@ exports.userProfileDetails=async (req,res)=>{
     return res.status(200).json({data:data})
 }
 
+//Recovery Password
+
+exports.RecoverVerifyEmail=async (req,res)=>{
+    const  data=await recoverVerifyEmailService(req)
+    return res.status(200).json({data:data})
+}
+
+
+exports.RecoverVerifyOTP=async (req,res)=>{
+    const  data=await recoverVerifyOTPService(req)
+    return res.status(200).json({data:data})
+}
+
+exports.RecoverResetPass=async (req,res)=>{
+    const  data=await recoverResetPassService(req)
+    return res.status(200).json({data:data})
+}
